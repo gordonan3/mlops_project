@@ -5,6 +5,8 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 scaler = joblib.load('scaler.joblib')
 label_encoder = joblib.load('label_encoder.joblib')
+one_hot_encoder = joblib.load('one_hot_encoder.joblib')
+
 model = joblib.load('trained_model.joblib')
 
 airlines = ['Airline_A', 'Airline_B', 'Airline_C']
@@ -45,7 +47,7 @@ num_data = pd.DataFrame([ (selected_time_of_departure, selected_time_of_arrival,
 cat_data = pd.DataFrame([(selected_airline, selected_departure_airport, selected_arrival_airport, selected_day,selected_month)])
 
 num_data_scaled = scaler.transform(num_data)
-cat_data_label = label_encoder.transform(cat_data)
+cat_data_label = cat_data.apply(lambda col: label_encoder[col.name].transform(col))
 
 input_data = pd.DataFrame([(cat_data_label, num_data_scaled)])
 
