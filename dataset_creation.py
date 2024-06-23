@@ -20,11 +20,13 @@ categorical_combinations = {
 }
 
 # Генерация различных комбинаций
-combinations = list(itertools.product(numerical_combinations.keys(), categorical_combinations.keys()))
+combinations = list(itertools.product(categorical_combinations.keys(), numerical_combinations.keys()))
 
 # Создание и сохранение новых комбинированных датасетов
 os.makedirs('processed_data/combinations', exist_ok=True)
 
-for num_method, cat_method in combinations:
-    combined_data = pd.concat([numerical_combinations[num_method], categorical_combinations[cat_method]], axis=1)
-    combined_data.to_csv(f'processed_data/combinations/{num_method}_{cat_method}_data.csv', index=False)
+for cat_method, num_method in combinations:
+    combined_data = pd.concat([categorical_combinations[cat_method], numerical_combinations[num_method]], axis=1)
+    combined_data.to_csv(f'processed_data/combinations/{cat_method}_{num_method}_data.csv', index=False)
+
+print("Новые комбинированные датасеты успешно созданы и сохранены.")

@@ -27,6 +27,9 @@ for column_name in data.columns:
     else:
         num_columns.append(column_name)
 
+# Удаление колонки 'Задержка' из числовых колонок
+num_columns.remove('Задержка')
+
 # Обработка числовых данных
 numerical_data = data[num_columns]
 
@@ -43,10 +46,13 @@ normalized_numerical_data.to_csv('processed_data/numerical/normalized/normalized
 # Обработка категориальных данных
 categorical_data = data[cat_columns]
 
-# Label Encoding
-label_encoder = LabelEncoder()
-label_encoded_categorical_data = categorical_data.apply(lambda col: label_encoder.fit_transform(col))
-label_encoded_categorical_data.to_csv('processed_data/categorical/label_encoded/label_encoded_data.csv', index=False)
+# Сохранение label encoders для каждой категориальной переменной
+label_encoder = {}
+for column in cat_columns:
+    le = LabelEncoder()
+    categorical_data[column] = le.fit_transform(categorical_data[column])
+    label_encoder[column] = le
+categorical_data.to_csv('processed_data/categorical/label_encoded/label_encoded_data.csv', index=False)
 
 # One-Hot Encoding
 one_hot_encoder = OneHotEncoder(sparse_output=False)
