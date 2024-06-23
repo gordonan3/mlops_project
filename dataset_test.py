@@ -12,7 +12,10 @@ def train_and_evaluate_model(dataset_path):
     
     # Разделение данных на признаки и целевую переменную
     X = data.drop(columns=['Задержка'])
+    y = data['Задержка']
     
+     # Преобразование целевой переменной в бинарные метки (0 или 1)
+    y = y.apply(lambda x: 1 if x > 0 else 0)
     
     # Разделение данных на обучающую и тестовую выборки
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

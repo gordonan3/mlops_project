@@ -5,11 +5,15 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score 
 import itertools 
 import os 
+import joblib
  
 data = pd.read_csv('processed_data/combinations/standardized_label_encoded_data.csv') 
  
 # Разделение данных на признаки и целевую переменную 
 X = data.drop(columns=['Задержка']) 
+y = data['Задержка']
+
+y = y.apply(lambda x: 1 if x > 0 else 0)
  
 # Разделение данных на обучающую и тестовую выборки 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42) 

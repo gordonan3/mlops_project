@@ -49,7 +49,7 @@ label_encoded_categorical_data = categorical_data.apply(lambda col: label_encode
 label_encoded_categorical_data.to_csv('processed_data/categorical/label_encoded/label_encoded_data.csv', index=False)
 
 # One-Hot Encoding
-one_hot_encoder = OneHotEncoder(sparse=False)
+one_hot_encoder = OneHotEncoder(sparse_output=False)
 one_hot_encoded_categorical_data = pd.DataFrame(one_hot_encoder.fit_transform(categorical_data), columns=one_hot_encoder.get_feature_names_out(cat_columns))
 one_hot_encoded_categorical_data.to_csv('processed_data/categorical/one_hot_encoded/one_hot_encoded_data.csv', index=False)
 

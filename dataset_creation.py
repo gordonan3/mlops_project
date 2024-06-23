@@ -1,5 +1,6 @@
 import pandas as pd
 import itertools
+import os
 
 # Загрузка обработанных данных
 standardized_numerical_data = pd.read_csv('processed_data/numerical/standardized/standardized_data.csv')
