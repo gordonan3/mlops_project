@@ -38,9 +38,5 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            archiveArtifacts artifacts: '**/train/*.csv, **/test/*.csv, **/test_scaled/*.csv, **/train_scaled/*.csv', allowEmptyArchive: true
-        }
-    }
+    
 }
